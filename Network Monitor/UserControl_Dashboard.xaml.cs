@@ -23,6 +23,9 @@ namespace Network_Monitor
         public UserControl_Dashboard()
         {
             InitializeComponent();
+
+            //UserControl pieChart = new UserControl_PieChart();
+            //Grid_PieChart.Children.Add(pieChart);
         }
     }
 }

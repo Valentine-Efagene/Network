@@ -43,7 +43,7 @@ namespace Network_Monitor
 
                 oldWindowState = oldState;
                 newWindowState = newState;
-                Debug.WriteLine("{0} -> {1}", oldState, newState);
+                //Debug.WriteLine("{0} -> {1}", oldState, newState);
             }
         }
 

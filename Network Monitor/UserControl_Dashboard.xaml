@@ -14,12 +14,23 @@
             TextOptions.TextFormattingMode="Ideal"
             TextOptions.TextRenderingMode="Auto"
             Background="White"
-            FontFamily="{DynamicResource MaterialDesignFont}">
+            FontFamily="{DynamicResource MaterialDesignFont}"
+             
+            xmlns:uc="clr-namespace:Network_Monitor">
+
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:Card Padding="32" Margin="16">
-                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0 40 0 0">
+                <materialDesign:Card Padding="32" Margin="16"  Height="300" Width="400">
+                    <Grid x:Name="Grid_PieChart">
+                        <!--uc:UserControl_PieChart/-->
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Padding="32" Margin="16" Height="300" Width="400">
+                    <Grid x:Name="Grid_ColumnChart">
+                        <uc:UserControl_ColumnChart/>
+                    </Grid>
                 </materialDesign:Card>
             </StackPanel>
         </StackPanel>
