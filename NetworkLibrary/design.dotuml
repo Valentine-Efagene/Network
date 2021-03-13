@@ -1,0 +1,7 @@
+﻿ClassDiagram {
+  class Network {
+    public GetNetworkInterfaces(): NetworkInterfaceArray
+    public GetBytesSent(interface: NetworkInterface): long
+    public GetBytesReceieved(interface: NetworkInterface): long
+  }
+}

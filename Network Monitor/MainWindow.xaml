@@ -5,8 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Network_Monitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Network Monitor" Height="600" Width="1080" Foreground="White" WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize"
         
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Window.Resources>
+        <!-- Storyboards -->
+        <Storyboard x:Key="ExpandMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Grid_Menu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="250"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CollapseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Grid_Menu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        
+        <!-- Styles -->
+        
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Button_ExpandMenu">
+            <BeginStoryboard Storyboard="{StaticResource ExpandMenu}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Button_CollapseMenu">
+            <BeginStoryboard Storyboard="{StaticResource CollapseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Grid x:Name="Grid_Main" VerticalAlignment="Stretch" Margin="70,0,0,0" Background="white">
+
+        </Grid>
+        <Grid VerticalAlignment="Top" Background="White">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button x:Name="Button_WindowMinimize" Click="Button_WindowMinimize_Click" Style="{DynamicResource MaterialDesignFlatButton}">
+                        <materialDesign:PackIcon Foreground="Black" Kind="WindowMinimize" />
+                    </Button>
+                    <Button x:Name="Button_WindowMaximize" Click="Button_WindowMaximize_Click" Style="{DynamicResource MaterialDesignFlatButton}" Visibility="Collapsed">
+                        <materialDesign:PackIcon Foreground="Black" Kind="WindowMaximize" />
+                    </Button>
+                    <Button x:Name="Button_WindowRestore" Click="Button_WindowRestore_Click" Style="{DynamicResource MaterialDesignFlatButton}">
+                        <materialDesign:PackIcon Foreground="Black" Kind="WindowRestore" />
+                    </Button>
+                    <Button x:Name="Button_WindowClose" Click="Button_WindowClose_Click" Style="{DynamicResource MaterialDesignFlatButton}">
+                        <materialDesign:PackIcon Foreground="Black" Kind="WindowClose" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="Grid_Menu" Width="70" HorizontalAlignment="Left" Background="#FF2A3F54">
+            <StackPanel>
+                <Grid>
+                    <Button x:Name="Button_CollapseMenu" Click="Button_CollapseMenu_Click" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed">
+                        <materialDesign:PackIcon Foreground="White" Kind="ArrowBack" Width="25"/>
+                    </Button>
+                    <Button x:Name="Button_ExpandMenu" Click="Button_ExpandMenu_Click" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <materialDesign:PackIcon Foreground="White" Kind="Menu" Width="25"/>
+                    </Button>
+                </Grid>
+                <ListView x:Name="ListView_Menu" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListView_Menu_SelectionChanged">
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Width="25" Height="25" Margin="10" VerticalAlignment="Center"/>
+                            <TextBlock Text="Dashboard" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
