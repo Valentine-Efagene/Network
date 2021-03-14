@@ -69,11 +69,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\EnumConverter.cs" />
+    <Compile Include="Converter\DataConverter.cs" />
+    <Compile Include="Converter\NumberConverter.cs" />
+    <Compile Include="Model\NIData.cs" />
+    <Compile Include="Model\NIType.cs" />
     <Compile Include="UserControl_ColumnChart.xaml.cs">
       <DependentUpon>UserControl_ColumnChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl_Dashboard.xaml.cs">
       <DependentUpon>UserControl_Dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl_LineChart.xaml.cs">
+      <DependentUpon>UserControl_LineChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl_PieChart.xaml.cs">
       <DependentUpon>UserControl_PieChart.xaml</DependentUpon>
@@ -95,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControl_Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl_LineChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

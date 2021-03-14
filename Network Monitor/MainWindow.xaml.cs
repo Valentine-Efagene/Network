@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +23,8 @@ namespace Network_Monitor
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static NetworkInterfaceType CurrentNiType { get; set; }
+
         WindowState oldWindowState = WindowState.Maximized;
         WindowState newWindowState = WindowState.Maximized;
 
@@ -86,6 +90,20 @@ namespace Network_Monitor
             WindowState = WindowState.Normal;
             Button_WindowRestore.Visibility = Visibility.Collapsed;
             Button_WindowMaximize.Visibility = Visibility.Visible;
+        }
+
+        private void ComboBox_NetworkInterface_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentNiType = (NetworkInterfaceType)e.AddedItems?[0];
+            Grid_Main.Children.Clear();
+            UserControl ucd = new UserControl_Dashboard();
+            Grid_Main.Children.Add(ucd);
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

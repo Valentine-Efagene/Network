@@ -16,20 +16,82 @@
             Background="White"
             FontFamily="{DynamicResource MaterialDesignFont}"
              
-            xmlns:uc="clr-namespace:Network_Monitor">
+            xmlns:uc="clr-namespace:Network_Monitor"
+            xmlns:model="clr-namespace:Network_Monitor.Model"
+            xmlns:converter="clr-namespace:Network_Monitor.Converter">
+
+    <UserControl.Resources>
+        <model:NIData x:Key="dashboardData"/>
+        <converter:NumberConverter x:Key="numberConverter"/>
+        <converter:EnumConverter x:Key="enumConverter"/>
+        <converter:DataConverter x:Key="dataConverter"/>
+    </UserControl.Resources>
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 40 0 0">
                 <materialDesign:Card Padding="32" Margin="16"  Height="300" Width="400">
-                    <Grid x:Name="Grid_PieChart">
-                        <!--uc:UserControl_PieChart/-->
+                    <Grid x:Name="Grid_LineChart">
+                        <uc:UserControl_LineChart/>
                     </Grid>
                 </materialDesign:Card>
 
                 <materialDesign:Card Padding="32" Margin="16" Height="300" Width="400">
                     <Grid x:Name="Grid_ColumnChart">
                         <uc:UserControl_ColumnChart/>
+                    </Grid>
+                </materialDesign:Card>
+                <StackPanel Orientation="Vertical">
+                    <materialDesign:Card Padding="32" Margin="16">
+                        <Grid x:Name="Grid_Speed">
+                            <StackPanel>
+                                <TextBlock Text="SPEED" FontWeight="DemiBold" FontSize="15"/>
+                                <TextBlock Text="{Binding Path=Speed, Converter={StaticResource numberConverter}}"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card Padding="32" Margin="16">
+                        <Grid x:Name="Grid_Status">
+                            <StackPanel>
+                                <TextBlock Text="STATUS" FontWeight="DemiBold" FontSize="15"/>
+                                <TextBlock Text="{Binding Path=Status, Converter={StaticResource enumConverter}}"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <materialDesign:Card Padding="32" Margin="16">
+                        <Grid x:Name="Grid_Sent">
+                            <StackPanel>
+                                <TextBlock Text="SENT" FontWeight="DemiBold" FontSize="15"/>
+                                <TextBlock Text="{Binding Path=TotalSent, Converter={StaticResource dataConverter}}"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card Padding="32" Margin="16">
+                        <Grid x:Name="Grid_Received">
+                            <StackPanel>
+                                <TextBlock Text="RECEIVED" FontWeight="DemiBold" FontSize="15"/>
+                                <TextBlock Text="{Binding Path=TotalReceived, Mode=OneWay, Converter={StaticResource dataConverter}}"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:Card Padding="32" Margin="16"  Height="300" Width="400">
+                    <Grid x:Name="Grid_PieChart">
+                        <uc:UserControl_PieChart/>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Padding="32" Margin="16" Height="300" Width="400">
+                    <Grid x:Name="Grid_">
+                        <!--uc:UserControl_ColumnChart/-->
+                        <Button x:Name="Button_Test" Content="Test" Click="Button_Test_Click"/>
                     </Grid>
                 </materialDesign:Card>
             </StackPanel>

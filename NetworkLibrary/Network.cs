@@ -42,5 +42,25 @@ namespace NetworkLibrary
         {
             return networkInterface.GetIPv4Statistics().BytesReceived;
         }
+
+        public static NetworkInterface GetActiveInterface(NetworkInterfaceType type)
+        {
+            NetworkInterface[] networkInterfaces = GetNetworkInterfaces();
+
+            if (networkInterfaces == null)
+            {
+                return null;
+            }
+
+            foreach (NetworkInterface networkInterface in networkInterfaces)
+            {
+                if(networkInterface.NetworkInterfaceType == type && networkInterface.OperationalStatus == OperationalStatus.Up && networkInterface.Speed != -1)
+                {
+                    return networkInterface;
+                }
+            }
+
+            return null;
+        }
     }
 }

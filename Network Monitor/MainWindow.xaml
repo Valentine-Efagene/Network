@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Network_Monitor"
         mc:Ignorable="d"
+        MouseDown="Window_MouseDown"
         Title="Network Monitor" Height="600" Width="1080" Foreground="White" WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -14,7 +15,9 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="White"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        xmlns:model="clr-namespace:Network_Monitor.Model">
     <Window.Resources>
         <!-- Storyboards -->
         <Storyboard x:Key="ExpandMenu">
@@ -32,6 +35,8 @@
         
         <!-- Styles -->
         
+        <!-- Sources -->
+        <model:NIType x:Key="niTypes"></model:NIType>
     </Window.Resources>
 
     <Window.Triggers>
@@ -46,8 +51,16 @@
         <Grid x:Name="Grid_Main" VerticalAlignment="Stretch" Margin="70,0,0,0" Background="white">
 
         </Grid>
-        <Grid VerticalAlignment="Top" Background="Wheat">
+        <Grid VerticalAlignment="Top" Background="#FFE4E4E4">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                <ComboBox Name="ComboBox_NetworkInterface"
+                        ItemsSource="{StaticResource niTypes}"
+                        Text="Network Interface Type"
+                        IsEditable="true"
+                        IsReadOnly="true"
+                          SelectionChanged="ComboBox_NetworkInterface_SelectionChanged"/>
+
+                <!--TextBlock Text="{Binding ElementName=ComboBox_NetworkInterface, Path=SelectedItem}"/-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                     <Button x:Name="Button_WindowMinimize" Click="Button_WindowMinimize_Click" Style="{DynamicResource MaterialDesignFlatButton}">
                         <materialDesign:PackIcon Foreground="Black" Kind="WindowMinimize" />

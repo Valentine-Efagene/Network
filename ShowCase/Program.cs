@@ -7,37 +7,35 @@ using System.Net.NetworkInformation;
 
 using NetworkLibrary;
 using System.Net;
+using System.ComponentModel;
 
 namespace ShowCase
 {
     class Program
     {
+        public string received = "N/A";
+
+        public async Task<int> HandleReceived(NetworkInterface active)
+        {
+            await Task.Run(() => {
+                while (true)
+                {
+                    received = active.GetIPv4Statistics().BytesReceived.ToString();
+                    Task.Delay(5000);
+                    //Console.WriteLine(received);
+                }
+            });
+
+            return 1;
+        }
+
         static void Main(string[] args)
         {
-            if (!NetworkInterface.GetIsNetworkAvailable())
-                return;
-
-            NetworkInterface[] interfaces
-                = NetworkInterface.GetAllNetworkInterfaces();
-
-
-            foreach (NetworkInterface ni in interfaces)
-            {
-                Console.WriteLine("----------------------------------------------------\n");
-                Console.WriteLine("Name: {0}", ni.Name);
-                Console.WriteLine("Interface Type: {0}", ni.NetworkInterfaceType);
-                Console.WriteLine("Status: {0}", ni.OperationalStatus);
-                Console.WriteLine("Speed: {0}", ni.Speed);
-                Console.WriteLine("MAC Address: {0}", ni.GetPhysicalAddress());
-                Console.WriteLine("Host Name: {0}", Dns.GetHostName());
-                Console.WriteLine("IPV4 Address: {0}", Dns.GetHostEntry(Dns.GetHostName()).AddressList[1].ToString());
-                Console.WriteLine("IPV6 Address: {0}", Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString());
-                Console.WriteLine("Adapter Description: {0}", ni.Description);
-                Console.WriteLine("    Bytes Sent: {0}",
-                    ni.GetIPv4Statistics().BytesSent);
-                Console.WriteLine("    Bytes Received: {0}",
-                    ni.GetIPv4Statistics().BytesReceived);
-            }
+            NetworkInterface activeNetworkInterface = NetworkLibrary.Network.GetActiveInterface(NetworkInterfaceType.Wireless80211);
+            BackgroundWorker b = new BackgroundWorker();
+            Program p = new Program();
+            //await p.HandleReceived(activeNetworkInterface);
+            string a = Console.ReadLine();
         }
     }
 }

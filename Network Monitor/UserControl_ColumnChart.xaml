@@ -19,5 +19,7 @@
                 <lvc:Axis Title="Sold Apps" LabelFormatter="{Binding Formatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
+
+        <Button x:Name="Button_Test" Content="Test" Click="Button_Test_Click"/>
     </Grid>
 </UserControl>
