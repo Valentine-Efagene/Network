@@ -7,19 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="ColumnChart"
+             Loaded="ColumnChart_Loaded"
              
              d:DataContext="{d:DesignInstance local:UserControl_ColumnChart}"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf">
     <Grid>
         <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Salesman" Labels="{Binding Labels}"></lvc:Axis>
+                <lvc:Axis Title="Class" Labels="{Binding Labels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Sold Apps" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                <lvc:Axis Title="Data" LabelFormatter="{Binding Formatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
-
-        <Button x:Name="Button_Test" Content="Test" Click="Button_Test_Click"/>
+        
+        <TextBlock Text="{Binding Unit}"></TextBlock>
     </Grid>
 </UserControl>

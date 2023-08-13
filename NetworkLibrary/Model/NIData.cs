@@ -4,20 +4,35 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Net.NetworkInformation;
 
-namespace Network_Monitor.Model
+namespace NetworkLibrary.Model
 {
     public class NIData : INotifyPropertyChanged
     {
         // Backing Stores
+        public long total;
         public long totalSent;
         public long totalReceived;
         public OperationalStatus status;
         public long speed;
 
         // Properties
+        public long Total
+        {
+            get => total;
+            set
+            {
+                if (value != total)
+                {
+                    PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(Total)));
+                }
+
+                total = value;
+            }
+        }
+
         public long TotalSent
         {
             get => totalSent;

@@ -9,15 +9,15 @@
                  d:DesignHeight="300" d:DesignWidth="500" 
                  d:DataContext="{d:DesignInstance local:UserControl_PieChart}">
     <Grid>
-        <lvc:PieChart LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}">
+        <lvc:PieChart LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}" Loaded="PieChart_Loaded">
             <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"
+                <lvc:PieSeries Title="A" Values="3" DataLabels="True"
                                    LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
+                <lvc:PieSeries Title="B" Values="4" DataLabels="True" 
                                    LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
+                <lvc:PieSeries Title="B" Values="6" DataLabels="True" 
                                    LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
+                <lvc:PieSeries Title="C" Values="2" DataLabels="True" 
                                    LabelPoint="{Binding PointLabel}"/>
             </lvc:PieChart.Series>
         </lvc:PieChart>

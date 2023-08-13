@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -73,7 +75,7 @@ namespace Network_Monitor
 
         }
 
-        private void Button_WindowMinimize_Click(object sender, RoutedEventArgs e)
+        /*private void Button_WindowMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
@@ -90,7 +92,7 @@ namespace Network_Monitor
             WindowState = WindowState.Normal;
             Button_WindowRestore.Visibility = Visibility.Collapsed;
             Button_WindowMaximize.Visibility = Visibility.Visible;
-        }
+        }*/
 
         private void ComboBox_NetworkInterface_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -104,6 +106,35 @@ namespace Network_Monitor
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        // Retrieves a connection string by name.
+        // Returns null if the name is not found.
+        static string GetConnectionStringByName(string name)
+        {
+            // Assume failure.
+            string returnValue = null;
+
+            // Look for the name in the connectionStrings section.
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[name];
+
+            // If found, return the connection string.
+            if (settings != null)
+                returnValue = settings.ConnectionString;
+
+            return returnValue;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            using (var connection = new SqliteConnection(GetConnectionStringByName("sqlite")))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = @"CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, sent INTEGER, received INTEGER, date TEXT)";
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

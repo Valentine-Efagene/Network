@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Network_Monitor.Converter
+namespace NetworkLibrary.Converter
 {
-    class EnumConverter : IValueConverter
+    public class EnumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -1,0 +1,79 @@
+﻿<Window x:Class="Network_Bubble.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Network_Bubble"
+        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{x:Null}" MouseDown="Window_MouseDown"
+        
+        Topmost="True"
+        Loaded="Window_Loaded"
+        
+        xmlns:model="clr-namespace:NetworkLibrary.Model;assembly=NetworkLibrary"
+        xmlns:converter="clr-namespace:NetworkLibrary.Converter;assembly=NetworkLibrary"
+        >
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Minimize" x:Name="MenuItem_Minimize" Click="MenuItem_Minimize_Click"/>
+            <MenuItem Header="Close" x:Name="MenuItem_Close" Click="MenuItem_Close_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    
+    <Window.Resources>
+        <!-- Sources -->
+        <model:NIData x:Key="dashboardData"/>
+        <model:NIType x:Key="niTypes"/>
+        <converter:NumberConverter x:Key="numberConverter"/>
+        <converter:EnumConverter x:Key="enumConverter"/>
+        <converter:DataConverter x:Key="dataConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Border BorderThickness="5" BorderBrush="Black" CornerRadius="30" Width="350" Height="150">
+            <Grid>
+                <Border CornerRadius="30" Background="White"/>
+                <Border CornerRadius="30" Background="#778889BB"/>
+            </Grid>
+        </Border>
+
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="auto" Height="auto" Margin="10">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="sans" FontSize="25" Text="SENT           ">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="9" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <TextBlock FontFamily="sans" FontSize="25" Text="{Binding Path=TotalSent, Converter={StaticResource dataConverter}}">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="9" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="sans" FontSize="25" Text="RECEIVED    ">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="9" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <TextBlock FontFamily="sans" FontSize="25" Text="{Binding Path=TotalReceived, Converter={StaticResource dataConverter}}">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="9" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="sans" FontSize="25" Text="TOTAL          ">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="9" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <TextBlock FontFamily="sans" FontSize="25" Text="{Binding Path=Total, Converter={StaticResource dataConverter}}">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="9" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

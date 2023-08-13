@@ -6,9 +6,9 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Network_Monitor.Model
+namespace NetworkLibrary.Model
 {
-    class NIType : ObservableCollection<NetworkInterfaceType>
+    public class NIType : ObservableCollection<NetworkInterfaceType>
     {
         public NIType()
         {

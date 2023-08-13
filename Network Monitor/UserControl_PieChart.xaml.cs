@@ -45,5 +45,10 @@ namespace Network_Monitor
             var selectedSeries = (PieSeries)chartpoint.SeriesView;
             selectedSeries.PushOut = 8;
         }
+
+        private void PieChart_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

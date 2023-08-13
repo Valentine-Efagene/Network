@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Network_Monitor"
         mc:Ignorable="d"
-        MouseDown="Window_MouseDown"
-        Title="Network Monitor" Height="600" Width="1080" Foreground="White" WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize"
+        Title="Network Monitor" Height="600" Width="1080" Foreground="White" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -16,6 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        Loaded="Window_Loaded"
         
         xmlns:model="clr-namespace:Network_Monitor.Model">
     <Window.Resources>
@@ -48,10 +48,12 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid>
-        <Grid x:Name="Grid_Main" VerticalAlignment="Stretch" Margin="70,0,0,0" Background="white">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+            <Grid x:Name="Grid_Main" VerticalAlignment="Stretch" Margin="70,0,0,0" Background="white">
 
-        </Grid>
-        <Grid VerticalAlignment="Top" Background="#FFE4E4E4">
+            </Grid>
+        </ScrollViewer>
+        <Grid VerticalAlignment="Top" Background="#FFE4E4E4" Height="40">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                 <ComboBox Name="ComboBox_NetworkInterface"
                         ItemsSource="{StaticResource niTypes}"
@@ -62,7 +64,7 @@
 
                 <!--TextBlock Text="{Binding ElementName=ComboBox_NetworkInterface, Path=SelectedItem}"/-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                    <Button x:Name="Button_WindowMinimize" Click="Button_WindowMinimize_Click" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <!--<Button x:Name="Button_WindowMinimize" Click="Button_WindowMinimize_Click" Style="{DynamicResource MaterialDesignFlatButton}">
                         <materialDesign:PackIcon Foreground="Black" Kind="WindowMinimize" />
                     </Button>
                     <Button x:Name="Button_WindowMaximize" Click="Button_WindowMaximize_Click" Style="{DynamicResource MaterialDesignFlatButton}" Visibility="Collapsed">
@@ -73,7 +75,7 @@
                     </Button>
                     <Button x:Name="Button_WindowClose" Click="Button_WindowClose_Click" Style="{DynamicResource MaterialDesignFlatButton}">
                         <materialDesign:PackIcon Foreground="Black" Kind="WindowClose" />
-                    </Button>
+                    </Button>-->
                 </StackPanel>
             </StackPanel>
         </Grid>

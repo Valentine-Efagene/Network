@@ -1,5 +1,4 @@
-﻿using NetworkLibrary.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,35 +12,38 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NetworkLibrary.Model;
 
-namespace Network_Monitor
+namespace Network_Bubble
 {
     /// <summary>
-    /// Interaction logic for UserControl_Dashboard.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class UserControl_Dashboard : UserControl
+    public partial class MainWindow : Window
     {
         NIData data = new NIData();
         NetworkInterface activeNetworkInterface;
+        public static NetworkInterfaceType CurrentNiType { get; set; }
 
-        private async Task<int> HandleReceived(NetworkInterface active)
+        private async Task<int> HandleReceived(NetworkInterface active, NIData data)
         {
-            if (active == null) {
-                return 0;
-            };
-
-            await Task.Run(()=> {
-                Debug.WriteLine("In");
-                while(true)
+            await Task.Run(() => {
+                while (true)
                 {
                     if (active == null)
                     {
-                        continue;
+                        active = NetworkLibrary.Network.GetActiveInterface(MainWindow.CurrentNiType);
+
+                        if (active == null)
+                        {
+                            continue;
+                        }
                     }
-                    
+
                     data.TotalSent = active.GetIPv4Statistics().BytesSent;
                     data.TotalReceived = active.GetIPv4Statistics().BytesReceived;
                     data.Total = data.TotalReceived + data.TotalSent;
@@ -58,10 +60,11 @@ namespace Network_Monitor
             return 0;
         }
 
-        public UserControl_Dashboard()
+        public MainWindow()
         {
             InitializeComponent();
             this.DataContext = data;
+            CurrentNiType = NetworkInterfaceType.Wireless80211;
 
             activeNetworkInterface = NetworkLibrary.Network.GetActiveInterface(MainWindow.CurrentNiType);
 
@@ -75,9 +78,29 @@ namespace Network_Monitor
             }
         }
 
-        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            await HandleReceived(activeNetworkInterface);
+            bool LMouseIsDown = Mouse.LeftButton == MouseButtonState.Pressed;
+
+            if (LMouseIsDown)
+            {
+                DragMove();
+            }
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            await HandleReceived(activeNetworkInterface, data);
+        }
+
+        private void MenuItem_Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void MenuItem_Close_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
